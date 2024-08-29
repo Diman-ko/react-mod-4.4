@@ -1,5 +1,5 @@
 import {useQuery} from '@tanstack/react-query';
-import {fetchPostList, usePostList} from "../../api/Post.ts";
+import {fetchPostList} from "../../api/Post.ts";
 import {Loader} from "../Loader";
 import {PostListView} from "./PostListView.tsx";
 import {queryClient} from "../../api/queryClient.ts";

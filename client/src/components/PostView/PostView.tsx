@@ -1,24 +1,28 @@
 import './PostView.css';
-import { Post } from "../../api/Post.ts";
-import { FC } from "react";
+import {Post} from "../../api/Post.ts";
+import {FC} from "react";
+import {FetchUserView} from "../UserView";
 
 // временная метка тип number и возвращает человекочитаемый формат string
 function formatDate(timestamp: number): string {
-  const date = new Date(timestamp);
-  return `${date.toLocaleDateString()} ${date.toLocaleTimeString(undefined, {
-    timeStyle: 'medium',
-  })}`;
+    const date = new Date(timestamp);
+    return `${date.toLocaleDateString()} ${date.toLocaleTimeString(undefined, {
+        timeStyle: 'medium',
+    })}`;
 }
 
 export interface PostListViewProps {
     post: Post;
 }
-export const PostView: FC<PostListViewProps> = ({ post }) => {
-  return (
-    <div className="post-view">
-      <p className="post-view__text">{post.text}</p>
 
-      <time className="post-view__time">{formatDate(post.createdAt)}</time>
-    </div>
-  );
+export const PostView: FC<PostListViewProps> = ({post}) => {
+    return (
+        <div className="post-view">
+            <FetchUserView userId={post.authorId}/>
+
+            <p className="post-view__text">{post.text}</p>
+
+            <time className="post-view__time">{formatDate(post.createdAt)}</time>
+        </div>
+    );
 };
