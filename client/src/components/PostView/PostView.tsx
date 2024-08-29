@@ -1,6 +1,6 @@
 import './PostView.css';
-import {Post} from "../../api/Post.ts";
-import {FC} from "react";
+import { Post } from "../../api/Post.ts";
+import { FC } from "react";
 
 // временная метка тип number и возвращает человекочитаемый формат string
 function formatDate(timestamp: number): string {
