@@ -1,4 +1,5 @@
 import {z} from "zod"
+import {validateResponse} from "./validateResponse.tsx";
 
 export const UserSchema = z.object({
     id: z.string(),
@@ -12,4 +13,41 @@ export function FetchUser(id: string): Promise<User> {
     return fetch(`/api/users/${id}`)
         .then((response) => response.json())
         .then((data) => UserSchema.parse(data));
+}
+
+
+// регистрация
+
+export function registerUser(username: string, password: string): Promise<void> {
+return fetch("/api/register", {
+    method: "POST",
+    headers: {
+       "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ username, password }),
+}).then(()=> undefined);
+}
+
+//  функция для входа уже зарегистрированного пользователя
+
+
+
+export function login(username: string, password: string): Promise<void> {
+    return fetch("/api/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({username, password})
+    })
+        .then(() => validateResponse)
+        .then(() => undefined);
+}
+
+
+export function fetchMe(): Promise<User> {
+return fetch("/api/users/me")
+    .then(validateResponse)
+    .then(response => response.json())
+    .then(data => UserSchema.parse(data));
 }
